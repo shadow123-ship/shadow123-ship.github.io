@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gamified Quiz - Question 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: linear-gradient(120deg,#89f7fe,#66a6ff);
+    }
+    button {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background: #4a90e2;
+      color: white;
+      cursor: pointer;
+    }
+    .meme {
+      width: 200px;
+      position: fixed;
+      bottom: -300px;
+      right: 20px;
+      transition: all 0.5s ease;
+    }
+    .meme.show { bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🎯 Quiz Time</h1>
+  <p>Question 1: What is 2 + 2?</p>
+
+  <button onclick="checkAnswer(true)">4 ✅</button>
+  <button onclick="checkAnswer(false)">5 ❌</button>
+  <button onclick="checkAnswer(false)">3 ❌</button>
+
+  <img src="https://i.imgflip.com/30b1gx.jpg" class="meme" id="meme">
+
+  <script>
+    const meme = document.getElementById('meme');
+
+    function checkAnswer(correct) {
+      if(correct){
+        meme.src = 'https://i.imgflip.com/4/3vzej1.jpg'; // happy meme
+        alert('Correct! 😎');
+      } else {
+        meme.src = 'https://i.imgflip.com/1bij.jpg'; // angry meme
+        alert('Wrong 😡');
+      }
+      meme.classList.add('show');
+    }
+  </script>
+</body>
+</html>
