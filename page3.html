@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fun Quiz - Level 2</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #fceabb, #f8b500);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+}
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+button {
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #ff7e5f;
+    color: white;
+    font-size: 16px;
+}
+button:hover { background: #eb6750; }
+.meme {
+    width: 200px;
+    margin-top: 20px;
+    transition: all 0.5s ease;
+}
+.sticker {
+    width: 150px;
+    position: fixed;
+    top: 20px;
+    right: -200px;
+    transition: right 0.5s ease;
+}
+.sticker.show { right: 20px; }
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2>Fun Quiz - Level 2</h2>
+<p id="question">Loading...</p>
+<div id="options"></div>
+<p id="score" style="font-weight:bold;"></p>
+<img id="meme" class="meme" style="display:none;">
+<img src="https://i.imgflip.com/1bij.jpg" class="sticker" id="sticker">
+</div>
+
+<script>
+// New quiz data for page3
+const quiz = [
+    { q: "What is the largest planet?", a: ["Earth", "Jupiter", "Mars"], correct: 1 },
+    { q: "Which language is used for web?", a: ["Python", "HTML", "C++"], correct: 1 },
+    { q: "Who wrote Hamlet?", a: ["Shakespeare", "Hemingway", "Tolkien"], correct: 0 },
+];
+
+let current = 0;
+let points = 0;
+
+function showQuestion() {
+    if(current >= quiz.length){
+        document.getElementById('question').innerText = "Level 2 Completed!";
+        document.getElementById('options').innerHTML = `<p>Your Score: ${points} / ${quiz.length}</p>
+        <button onclick="goNextPage()">Next Level</button>`;
+        return;
+    }
+    let q = quiz[current];
+    document.getElementById('question').innerText = q.q;
+    let html = "";
+    q.a.forEach((opt,i)=>{
+        html += `<button onclick="answer(${i})">${opt}</button>`;
+    });
+    document.getElementById('options').innerHTML = html;
+}
+
+function answer(i){
+    let q = quiz[current];
+    let meme = document.getElementById('meme');
+    let sticker = document.getElementById('sticker');
+    sticker.classList.add('show');
+
+    if(i === q.correct){
+        points++;
+        meme.src = "https://i.imgflip.com/3si4.jpg"; // happy meme
+    } else {
+        meme.src = "https://i.imgflip.com/30b1gx.jpg"; // angry meme
+    }
+    meme.style.display = "block";
+    
+    setTimeout(()=>{
+        meme.style.display = "none";
+        sticker.classList.remove('show');
+        current++;
+        showQuestion();
+    }, 1500);
+}
+
+// Optional: Next level (could link to page4)
+function goNextPage(){
+    alert("Congrats! End of current levels for now.");
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
